@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>任佳乐的新闻传播伦理法规期末作品</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 粒子背景 -->
+    <canvas id="particles"></canvas>
+
+    <!-- 顶部导航栏 -->
+    <nav class="top-nav" id="topNav">
+      <div class="nav-logo">
+        <span class="nav-logo-icon">⚖️</span>
+        <span>朋友圈法庭</span>
+        <span class="nav-edu-badge">普法教育</span>
+      </div>
+      <div class="nav-scene-info" id="navSceneInfo">序幕</div>
+    </nav>
+
+    <!-- 进度条 -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- 风险指示器 -->
+    <div class="risk-indicator" id="riskIndicator">
+      <div class="risk-icon">⚖️</div>
+      <div class="risk-bar">
+        <div class="risk-fill" id="riskFill"></div>
+      </div>
+      <div class="risk-label">法律风险值</div>
+      <div class="risk-value" id="riskValue">0</div>
+    </div>
+
+    <!-- 选择历史 -->
+    <div class="choice-history" id="choiceHistory">
+      <div class="choice-history-title">选择记录</div>
+      <div id="choiceHistoryList"></div>
+    </div>
+
+    <!-- 提示框 -->
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toastIcon">💡</span>
+      <span id="toastText"></span>
+    </div>
+
+    <!-- 音频控制 -->
+    <button class="audio-toggle" id="audioToggle" title="音效开关">🔊</button>
+
+    <!-- ==================== 序幕 ==================== -->
+    <section class="scene active" id="scene-prelude">
+      <div class="scene-content prelude-content">
+        <div class="title-glitch" data-text="如果你的朋友圈能上法庭">
+          如果你的朋友圈能上法庭
+        </div>
+        <div class="subtitle typewriter">一部关于传播伦理的互动电影</div>
+        <div class="prelude-desc">
+          <p>在这场互动体验中</p>
+          <p>你将面对 <span class="highlight">8个传播伦理困境</span></p>
+          <p>你的每一个选择</p>
+          <p>都将被记录在 <span class="highlight">数字法庭</span> 的卷宗上</p>
+        </div>
+        <div class="prelude-features">
+          <div class="feature-card">
+            <div class="feature-card-icon">📚</div>
+            <div class="feature-card-title">法律知识</div>
+            <div class="feature-card-desc">涵盖民法典、个人信息保护法等核心法律条文</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">🎭</div>
+            <div class="feature-card-title">情景模拟</div>
+            <div class="feature-card-desc">真实案例改编，沉浸式体验传播伦理困境</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">⚖️</div>
+            <div class="feature-card-title">风险评估</div>
+            <div class="feature-card-desc">实时追踪你的法律风险值，生成个人报告</div>
+          </div>
+        </div>
+        <button class="btn-start" id="btnStart">
+          <span class="btn-text">进入故事</span>
+          <span class="btn-arrow">→</span>
+        </button>
+        <div class="prelude-warning">
+          ⚠ 本作品涉及真实法律案例改编，仅供教育用途 | 新闻传播伦理与法规课程作品
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第一幕：热搜爆发 ==================== -->
+    <section class="scene" id="scene-1">
+      <div class="scene-bg-gradient scene-1"></div>
+      <div class="scene-content">
+        <div class="act-label">第一幕</div>
+        <h2 class="scene-title">热搜爆发</h2>
+        <div class="scene-setting">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="phone-header">
+                <span class="phone-time">22:37</span>
+                <span class="phone-signal">📶</span>
+              </div>
+              <div class="social-feed">
+                <div class="notification-new">
+                  <div class="notif-badge">HOT</div>
+                  <div class="notif-content">
+                    <strong>微博热搜 #某高校女生不雅照流出#</strong>
+                    <span class="notif-heat">🔥 2.3亿阅读</span>
+                  </div>
+                </div>
+                <div class="chat-bubble incoming">
+                  <div class="chat-avatar">👩</div>
+                  <div class="chat-text">快看热搜！你认识的那个学姐被爆了！</div>
+                </div>
+                <div class="chat-bubble incoming">
+                  <div class="chat-avatar">👨</div>
+                  <div class="chat-text">朋友圈都转疯了，据说有人发了原图</div>
+                </div>
+                <div class="chat-bubble incoming delay-1">
+                  <div class="chat-avatar">👩‍🎓</div>
+                  <div class="chat-text">这照片看着像是AI合成的吧？</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="decision-panel">
+          <h3 class="decision-question">你会怎么做？</h3>
+          <div class="choices" id="choices-1">
+            <button class="choice-btn" data-scene="1" data-choice="a" data-risk="15" data-type="转发扩散">
+              <span class="choice-icon">📤</span>
+              <span class="choice-text">转发到朋友圈并评论「这也太离谱了」</span>
+              <span class="choice-tag risk-high">高风险</span>
+            </button>
+            <button class="choice-btn" data-scene="1" data-choice="b" data-risk="5" data-type="围观吃瓜">
+              <span class="choice-icon">👀</span>
+              <span class="choice-text">默默吃瓜，截图保存到相册</span>
+              <span class="choice-tag risk-mid">中风险</span>
+            </button>
+            <button class="choice-btn" data-scene="1" data-choice="c" data-risk="0" data-type="不参与">
+              <span class="choice-icon">🙅</span>
+              <span class="choice-text">不参与讨论，划走</span>
+              <span class="choice-tag risk-low">低风险</span>
+            </button>
+            <button class="choice-btn" data-scene="1" data-choice="d" data-risk="-5" data-type="主动举报">
+              <span class="choice-icon">🚨</span>
+              <span class="choice-text">向平台举报该内容</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+          </div>
+        </div>
+        <div class="law-hint" id="lawHint-1">
+          <div class="law-icon">📖</div>
+          <div class="law-text">
+            <strong>法律知识点：网络信息传播</strong><br>
+            《民法典》第1032条：自然人享有隐私权。任何组织或者个人不得以刺探、侵扰、泄露、公开等方式侵害他人的隐私权。<br>
+            <span class="law-note">传播未经证实的他人隐私信息，即使不是首发者，也可能承担连带法律责任。</span>
+            <button class="law-hint-btn" onclick="showKnowledge(1)">深入了解 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第二幕：聊天记录曝光 ==================== -->
+    <section class="scene" id="scene-2">
+      <div class="scene-bg-gradient scene-2"></div>
+      <div class="scene-content">
+        <div class="act-label">第二幕</div>
+        <h2 class="scene-title">聊天记录曝光</h2>
+        <div class="scene-setting">
+          <div class="chat-leak-card">
+            <div class="leak-header">
+              <div class="leak-badge">泄露</div>
+              <div class="leak-meta">
+                <span>某匿名账号发布</span>
+                <span class="leak-time">10分钟前</span>
+              </div>
+            </div>
+            <div class="leak-content">
+              <div class="chat-leak-bubble self">那个学姐的照片好像是P的，我认识她</div>
+              <div class="chat-leak-bubble other">真的假的？那你发原图我看看</div>
+              <div class="chat-leak-bubble self">等下我找找...有了！这是我从她朋友圈截图的</div>
+              <div class="chat-leak-bubble other">卧槽，她朋友圈还有这种照片？</div>
+              <div class="chat-leak-bubble self">不知道被谁发到群里了，现在到处都在传</div>
+            </div>
+            <div class="leak-footer">
+              <span class="leak-views">👁 12.8万次浏览</span>
+              <span class="leak-comments">💬 4.2万条评论</span>
+            </div>
+          </div>
+          <div class="evidence-tag" onclick="showKnowledge(2)">📋 这段聊天记录中涉及哪些法律问题？点击了解</div>
+        </div>
+        <div class="decision-panel">
+          <h3 class="decision-question">评论区出现了一条热评：「这不就是那个xxx班的xxx吗？」</h3>
+          <div class="choices" id="choices-2">
+            <button class="choice-btn" data-scene="2" data-choice="a" data-risk="20" data-type="公开人肉">
+              <span class="choice-icon">🔍</span>
+              <span class="choice-text">好奇之下也去搜索并确认此人身份</span>
+              <span class="choice-tag risk-high">高风险</span>
+            </button>
+            <button class="choice-btn" data-scene="2" data-choice="b" data-risk="10" data-type="点赞助推">
+              <span class="choice-icon">👍</span>
+              <span class="choice-text">给这条评论点赞并回复「+1」</span>
+              <span class="choice-tag risk-mid">中风险</span>
+            </button>
+            <button class="choice-btn" data-scene="2" data-choice="c" data-risk="0" data-type="忽视">
+              <span class="choice-icon">🙈</span>
+              <span class="choice-text">无视这条评论</span>
+              <span class="choice-tag risk-low">低风险</span>
+            </button>
+            <button class="choice-btn" data-scene="2" data-choice="d" data-risk="-8" data-type="维护权益">
+              <span class="choice-icon">🛡️</span>
+              <span class="choice-text">举报该评论侵犯隐私权</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+          </div>
+        </div>
+        <div class="law-hint" id="lawHint-2">
+          <div class="law-icon">📖</div>
+          <div class="law-text">
+            <strong>法律知识点：隐私权与人肉搜索</strong><br>
+            《个人信息保护法》第10条：任何组织、个人不得非法收集、使用、加工、传输他人个人信息，不得非法买卖、提供或者公开他人个人信息。<br>
+            <span class="law-note">人肉搜索并公开他人个人信息属于违法行为，可处以罚款乃至刑事责任。</span>
+            <button class="law-hint-btn" onclick="showKnowledge(2)">深入了解 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第三幕：AI换脸视频 ==================== -->
+    <section class="scene" id="scene-3">
+      <div class="scene-bg-gradient scene-3"></div>
+      <div class="scene-content">
+        <div class="act-label">第三幕</div>
+        <h2 class="scene-title">AI换脸视频</h2>
+        <div class="scene-setting">
+          <div class="video-card">
+            <div class="video-player">
+              <div class="video-static"></div>
+              <div class="video-overlay">
+                <div class="play-btn">▶</div>
+                <div class="video-duration">01:23</div>
+              </div>
+              <div class="video-warning">
+                <span class="warning-icon">⚠️</span>
+                <span>AI合成视频检测中...</span>
+              </div>
+              <div class="deepfake-indicator">
+                <div class="scan-line"></div>
+                <div class="scan-text">DEEPFAKE DETECTED</div>
+                <div class="confidence">置信度: 94.7%</div>
+              </div>
+            </div>
+            <div class="video-info">
+              <div class="video-title">「震惊！某高校女生拍摄不雅视频」</div>
+              <div class="video-meta">
+                <span>👤 匿名发布</span>
+                <span>👁 890万播放</span>
+                <span>💬 56万评论</span>
+              </div>
+              <div class="video-tags">
+                <span class="tag">#AI换脸</span>
+                <span class="tag">#深度伪造</span>
+                <span class="tag red">#已确认为合成</span>
+              </div>
+            </div>
+          </div>
+          <div class="evidence-tag" onclick="showKnowledge(3)">📋 AI换脸技术涉及哪些法律问题？点击了解</div>
+        </div>
+        <div class="decision-panel">
+          <h3 class="decision-question">你发现这段视频明显是AI合成的，你会？</h3>
+          <div class="choices" id="choices-3">
+            <button class="choice-btn" data-scene="3" data-choice="a" data-risk="25" data-type="传播合成内容">
+              <span class="choice-icon">🔄</span>
+              <span class="choice-text">太真了，先转发再说</span>
+              <span class="choice-tag risk-high">高风险</span>
+            </button>
+            <button class="choice-btn" data-scene="3" data-choice="b" data-risk="8" data-type="截图传播">
+              <span class="choice-icon">📸</span>
+              <span class="choice-text">截图发给朋友讨论</span>
+              <span class="choice-tag risk-mid">中风险</span>
+            </button>
+            <button class="choice-btn" data-scene="3" data-choice="c" data-risk="0" data-type="关闭">
+              <span class="choice-icon">❌</span>
+              <span class="choice-text">关闭视频不看</span>
+              <span class="choice-tag risk-low">低风险</span>
+            </button>
+            <button class="choice-btn" data-scene="3" data-choice="d" data-risk="-10" data-type="反击">
+              <span class="choice-icon">⚔️</span>
+              <span class="choice-text">在评论区指出这是AI换脸，呼吁大家停止传播</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+          </div>
+        </div>
+        <div class="law-hint" id="lawHint-3">
+          <div class="law-icon">📖</div>
+          <div class="law-text">
+            <strong>法律知识点：AI换脸与深度伪造</strong><br>
+            《民法典》第1019条：任何组织或者个人不得以丑化、污损，或者利用信息技术手段伪造等方式侵害他人的肖像权。<br>
+            《互联网信息服务深度合成管理规定》：深度合成服务提供者和使用者不得利用深度合成服务制作、复制、发布、传播虚假新闻信息。<br>
+            <span class="law-note">制作、传播AI换脸内容可能面临民事赔偿、行政处罚，情节严重者可追究刑事责任。</span>
+            <button class="law-hint-btn" onclick="showKnowledge(3)">深入了解 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第四幕：网络暴力扩散 ==================== -->
+    <section class="scene" id="scene-4">
+      <div class="scene-bg-gradient scene-4"></div>
+      <div class="scene-content">
+        <div class="act-label">第四幕</div>
+        <h2 class="scene-title">网络暴力扩散</h2>
+        <div class="scene-setting">
+          <div class="cyberbully-wall">
+            <div class="comment-bubble negative n1">「这种人也配当大学生？」</div>
+            <div class="comment-bubble negative n2">「活该被曝光」</div>
+            <div class="comment-bubble negative n3">「恶心，应该开除」</div>
+            <div class="comment-bubble negative n4">「有她手机号的发一下」</div>
+            <div class="comment-bubble negative n5">「她家住在xxx小区xxx栋」</div>
+            <div class="comment-bubble negative n6">「去她学校堵她」</div>
+            <div class="comment-bubble negative n7">「P图技术不行啊哈哈」</div>
+            <div class="comment-bubble negative n8">「听说她之前就作风不好」</div>
+            <div class="comment-bubble neutral n9">「等等，有没有可能是假的？」</div>
+          </div>
+          <div class="victim-status">
+            <div class="victim-avatar">😢</div>
+            <div class="victim-info">
+              <div class="victim-name">受害女生（匿名）</div>
+              <div class="victim-detail">因不堪网络暴力，已关闭所有社交媒体账号</div>
+              <div class="victim-detail red">已出现严重焦虑症状</div>
+            </div>
+          </div>
+          <div class="evidence-tag" onclick="showKnowledge(4)">📋 网络暴力可能触犯哪些法律？点击了解</div>
+        </div>
+        <div class="decision-panel">
+          <h3 class="decision-question">一条针对受害者的匿名帖子获得了大量转发，你会？</h3>
+          <div class="choices" id="choices-4">
+            <button class="choice-btn" data-scene="4" data-choice="a" data-risk="20" data-type="跟风攻击">
+              <span class="choice-icon">🔥</span>
+              <span class="choice-text">加入评论区一起骂</span>
+              <span class="choice-tag risk-high">高风险</span>
+            </button>
+            <button class="choice-btn" data-scene="4" data-choice="b" data-risk="5" data-type="冷眼旁观">
+              <span class="choice-icon">😶</span>
+              <span class="choice-text">默默看热闹，不说话</span>
+              <span class="choice-tag risk-low">低风险</span>
+            </button>
+            <button class="choice-btn" data-scene="4" data-choice="c" data-risk="-5" data-type="理性发声">
+              <span class="choice-icon">💡</span>
+              <span class="choice-text">发布理性分析，呼吁等待真相</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+            <button class="choice-btn" data-scene="4" data-choice="d" data-risk="-8" data-type="保护受害者">
+              <span class="choice-icon">🫂</span>
+              <span class="choice-text">私信受害者表达关心，并向平台举报网暴内容</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+          </div>
+        </div>
+        <div class="law-hint" id="lawHint-4">
+          <div class="law-icon">📖</div>
+          <div class="law-text">
+            <strong>法律知识点：网络暴力与名誉权</strong><br>
+            《民法典》第1024条：民事主体享有名誉权。任何组织或者个人不得以侮辱、诽谤等方式侵害他人的名誉权。<br>
+            《刑法》第246条：以暴力或者其他方法公然侮辱他人或者捏造事实诽谤他人，情节严重的，处三年以下有期徒刑。<br>
+            <span class="law-note">2023年最高法、最高检、公安部联合发布《关于依法惩治网络暴力违法犯罪的指导意见》，明确了网暴入刑标准。</span>
+            <button class="law-hint-btn" onclick="showKnowledge(4)">深入了解 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第五幕：事件反转 ==================== -->
+    <section class="scene" id="scene-5">
+      <div class="scene-bg-gradient scene-5"></div>
+      <div class="scene-content">
+        <div class="act-label">第五幕</div>
+        <h2 class="scene-title">事件反转</h2>
+        <div class="scene-setting">
+          <div class="twist-card">
+            <div class="twist-flash"></div>
+            <div class="twist-badge">真相浮出</div>
+            <div class="twist-timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-time">事件发生前3天</div>
+                  <div class="timeline-text">警方介入调查AI换脸视频源头</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-time">事件发生前1天</div>
+                  <div class="timeline-text">AI换脸视频制作者被锁定为受害女生的前男友</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot active"></div>
+                <div class="timeline-content">
+                  <div class="timeline-time">今日</div>
+                  <div class="timeline-text"><strong>警方通报：视频系前男友利用AI技术合成，所有转发传播者均被追责</strong></div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot red"></div>
+                <div class="timeline-content">
+                  <div class="timeline-time">法院已受理</div>
+                  <div class="timeline-text"><strong>受害女生已向法院提起民事诉讼</strong></div>
+                </div>
+              </div>
+            </div>
+            <div class="twist-impact">
+              <div class="impact-stat">
+                <span class="impact-number" id="totalShares">2.3万</span>
+                <span class="impact-label">转发者被追责</span>
+              </div>
+              <div class="impact-stat">
+                <span class="impact-number">847</span>
+                <span class="impact-label">评论者被约谈</span>
+              </div>
+              <div class="impact-stat">
+                <span class="impact-number red">23</span>
+                <span class="impact-label">人面临刑事追诉</span>
+              </div>
+            </div>
+          </div>
+          <div class="evidence-tag" onclick="showKnowledge(5)">📋 传播虚假信息需要承担什么责任？点击了解</div>
+        </div>
+        <div class="decision-panel">
+          <h3 class="decision-question">警方要求转发过该内容的用户配合调查，你之前的行为被记录了。你会？</h3>
+          <div class="choices" id="choices-5">
+            <button class="choice-btn" data-scene="5" data-choice="a" data-risk="30" data-type="拒不配合">
+              <span class="choice-icon">🚫</span>
+              <span class="choice-text">删除所有记录，假装没转发过</span>
+              <span class="choice-tag risk-high">高风险</span>
+            </button>
+            <button class="choice-btn" data-scene="5" data-choice="b" data-risk="10" data-type="部分配合">
+              <span class="choice-icon">🫣</span>
+              <span class="choice-text">删帖后主动联系律师咨询</span>
+              <span class="choice-tag risk-mid">中风险</span>
+            </button>
+            <button class="choice-btn" data-scene="5" data-choice="c" data-risk="-5" data-type="配合">
+              <span class="choice-icon">🤝</span>
+              <span class="choice-text">主动配合调查，如实说明情况</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+            <button class="choice-btn" data-scene="5" data-choice="d" data-risk="-10" data-type="道歉">
+              <span class="choice-icon">🙏</span>
+              <span class="choice-text">主动联系受害者道歉，争取和解</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+          </div>
+        </div>
+        <div class="law-hint" id="lawHint-5">
+          <div class="law-icon">📖</div>
+          <div class="law-text">
+            <strong>法律知识点：配合调查义务</strong><br>
+            《网络安全法》第28条：网络运营者应当为公安机关、国家安全机关依法维护国家安全和侦查犯罪的活动提供技术支持和协助。<br>
+            <span class="law-note">删除证据并不能免除法律责任，反而可能因妨碍司法而加重处罚。</span>
+            <button class="law-hint-btn" onclick="showKnowledge(5)">深入了解 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第六幕：收到法院传票 ==================== -->
+    <section class="scene" id="scene-6">
+      <div class="scene-bg-gradient scene-6"></div>
+      <div class="scene-content">
+        <div class="act-label">第六幕</div>
+        <h2 class="scene-title">收到法院传票</h2>
+        <div class="scene-setting">
+          <div class="summons-card">
+            <div class="summons-seal">法 徽</div>
+            <div class="summons-header">中华人民共和国人民法院</div>
+            <div class="summons-subtitle">民 事 传 票</div>
+            <div class="summons-body">
+              <p>（2026）京01民初字第XXXX号</p>
+              <p class="summons-parties">
+                原告：张某某（化名）<br>
+                被告：<span class="summons-highlight">你</span>
+              </p>
+              <p class="summons-reason">
+                案由：名誉权纠纷、隐私权纠纷、肖像权纠纷
+              </p>
+              <p>
+                原告诉称：被告于2026年X月X日在社交平台转发、评论、扩散原告的虚假不雅视频及相关个人信息，导致原告遭受严重精神损害，社会评价显著降低。
+              </p>
+            </div>
+            <div class="summons-footer">
+              <p>开庭时间：2026年X月X日 上午9:30</p>
+              <p>开庭地点：北京市朝阳区人民法院</p>
+            </div>
+          </div>
+        </div>
+        <div class="decision-panel">
+          <h3 class="decision-question">面对传票，你的第一反应是？</h3>
+          <div class="choices" id="choices-6">
+            <button class="choice-btn" data-scene="6" data-choice="a" data-risk="25" data-type="逃避">
+              <span class="choice-icon">🏃</span>
+              <span class="choice-text">不理会传票，不去开庭</span>
+              <span class="choice-tag risk-high">高风险</span>
+            </button>
+            <button class="choice-btn" data-scene="6" data-choice="b" data-risk="5" data-type="应诉">
+              <span class="choice-icon">📝</span>
+              <span class="choice-text">请律师代理出庭</span>
+              <span class="choice-tag risk-mid">中风险</span>
+            </button>
+            <button class="choice-btn" data-scene="6" data-choice="c" data-risk="0" data-type="自行应诉">
+              <span class="choice-icon">🏛️</span>
+              <span class="choice-text">自行准备材料出庭应诉</span>
+              <span class="choice-tag risk-low">低风险</span>
+            </button>
+            <button class="choice-btn" data-scene="6" data-choice="d" data-risk="-10" data-type="庭前和解">
+              <span class="choice-icon">🤝</span>
+              <span class="choice-text">尝试联系原告进行庭前和解</span>
+              <span class="choice-tag risk-safe">安全</span>
+            </button>
+          </div>
+        </div>
+        <div class="law-hint" id="lawHint-6">
+          <div class="law-icon">📖</div>
+          <div class="law-text">
+            <strong>法律知识点：法院传票与应诉义务</strong><br>
+            《民事诉讼法》第139条：人民法院对必须到庭的被告，经两次传票传唤，无正当理由拒不到庭的，可以拘传。<br>
+            《民事诉讼法》第146条：被告经传票传唤，无正当理由拒不到庭的，可以缺席判决。<br>
+            <span class="law-note">收到传票后，积极应诉、争取庭前和解是从轻处理的重要途径。</span>
+            <button class="law-hint-btn" onclick="showKnowledge(6)">深入了解 →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第七幕：数字法庭审判 ==================== -->
+    <section class="scene" id="scene-7">
+      <div class="scene-bg-gradient scene-7"></div>
+      <div class="scene-content court-scene">
+        <div class="act-label">第七幕</div>
+        <h2 class="scene-title">数字法庭审判</h2>
+        <div class="court-room">
+          <div class="court-header">
+            <div class="court-emblem">⚖️</div>
+            <div class="court-name">北京市朝阳区人民法院</div>
+            <div class="court-room-num">第三审判庭</div>
+          </div>
+          <div class="court-layout">
+            <div class="judge-seat">
+              <div class="judge-avatar">👨‍⚖️</div>
+              <div class="judge-name">审判长 王法官</div>
+              <div class="judge-gavel">🔨</div>
+            </div>
+            <div class="court-parties">
+              <div class="party plaintiff">
+                <div class="party-label">原告方</div>
+                <div class="party-avatar">👩</div>
+                <div class="party-name">张某某（化名）</div>
+                <div class="party-rep">代理律师：李律师</div>
+              </div>
+              <div class="party-vs">VS</div>
+              <div class="party defendant">
+                <div class="party-label">被告方</div>
+                <div class="party-avatar">🧑</div>
+                <div class="party-name">你（被告）</div>
+                <div class="party-rep" id="defendantRep">自行应诉</div>
+              </div>
+            </div>
+          </div>
+          <div class="trial-progress" id="trialProgress">
+            <div class="trial-step active" data-step="opening">
+              <div class="step-dot"></div>
+              <div class="step-label">开庭陈述</div>
+            </div>
+            <div class="trial-step" data-step="evidence">
+              <div class="step-dot"></div>
+              <div class="step-label">证据质证</div>
+            </div>
+            <div class="trial-step" data-step="debate">
+              <div class="step-dot"></div>
+              <div class="step-label">法庭辩论</div>
+            </div>
+            <div class="trial-step" data-step="verdict">
+              <div class="step-dot"></div>
+              <div class="step-label">宣判</div>
+            </div>
+          </div>
+          <div class="trial-content" id="trialContent">
+            <div class="trial-phase" id="trial-opening">
+              <div class="judge-speech">
+                <div class="speech-label">审判长</div>
+                <div class="speech-text" id="openingText"></div>
+              </div>
+              <div class="prosecution-speech">
+                <div class="speech-label">原告律师</div>
+                <div class="speech-text" id="prosecutionText"></div>
+              </div>
+              <div class="defense-speech">
+                <div class="speech-label">被告</div>
+                <div class="speech-text" id="defenseText"></div>
+              </div>
+            </div>
+            <div class="trial-phase hidden" id="trial-evidence"></div>
+            <div class="trial-phase hidden" id="trial-debate"></div>
+            <div class="trial-phase hidden" id="trial-verdict"></div>
+          </div>
+          <button class="btn-trial-next" id="btnTrialNext">继续审判 →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 第八幕：判决结果 ==================== -->
+    <section class="scene" id="scene-8">
+      <div class="scene-bg-gradient scene-8"></div>
+      <div class="scene-content">
+        <div class="act-label">第八幕</div>
+        <h2 class="scene-title">判决结果</h2>
+        <div class="scene-setting">
+          <!-- 等级评价卡 -->
+          <div class="grade-card" id="gradeCard">
+            <div class="grade-badge" id="gradeBadge">A</div>
+            <div class="grade-title" id="gradeTitle">传播伦理守护者</div>
+            <div class="grade-desc" id="gradeDesc">你的选择展现了良好的法律意识和传播伦理素养</div>
+          </div>
+
+          <div class="verdict-card" id="verdictCard">
+            <div class="verdict-seal">🏛️</div>
+            <div class="verdict-header">中华人民共和国人民法院</div>
+            <div class="verdict-subtitle">民 事 判 决 书</div>
+            <div class="verdict-body">
+              <p class="verdict-case-num">（2026）京01民初字第XXXX号</p>
+              <div class="verdict-section">
+                <h4>一、案件概述</h4>
+                <p>原告张某某诉被告名誉权、隐私权、肖像权纠纷一案，本院依法公开审理。原告主张被告在社交媒体平台转发、评论、扩散涉及原告的虚假AI合成不雅视频及个人信息，侵害原告合法权益。</p>
+              </div>
+              <div class="verdict-section">
+                <h4>二、本院查明</h4>
+                <p id="verdictFacts"></p>
+              </div>
+              <div class="verdict-section">
+                <h4>三、风险评估报告</h4>
+                <div class="risk-report" id="riskReport"></div>
+              </div>
+              <div class="verdict-section">
+                <h4>四、本院认为</h4>
+                <p id="verdictOpinion"></p>
+              </div>
+              <div class="verdict-section">
+                <h4>五、判决如下</h4>
+                <div class="verdict-judgment" id="verdictJudgment"></div>
+              </div>
+            </div>
+            <div class="verdict-stamp">
+              <div class="stamp-text">2026年X月X日</div>
+              <div class="stamp-seal">北京市朝阳区人民法院</div>
+            </div>
+          </div>
+
+          <div class="risk-summary-card" id="riskSummaryCard">
+            <h3 class="summary-title">📊 你的传播伦理风险报告</h3>
+            <div class="summary-stats" id="summaryStats"></div>
+            <div class="summary-chart" id="summaryChart">
+              <canvas id="riskCanvas" width="300" height="300"></canvas>
+            </div>
+            <div class="summary-legal-points" id="summaryLegalPoints"></div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn-export" id="btnExport">📥 导出判决书截图</button>
+            <button class="btn-restart" id="btnRestart">🔄 重新体验</button>
+            <button class="btn-share" id="btnShare">📤 分享体验</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 裁决动画覆盖层 -->
+    <div class="court-overlay" id="courtOverlay">
+      <div class="gavel-animation">
+        <div class="gavel">🔨</div>
+        <div class="gavel-sound">法槌落下</div>
+      </div>
+    </div>
+
+    <!-- 知识弹窗 -->
+    <div class="knowledge-modal" id="knowledgeModal">
+      <div class="knowledge-card">
+        <button class="knowledge-card-close" onclick="closeKnowledge()">×</button>
+        <div class="knowledge-card-badge" id="knowledgeBadge">法律知识</div>
+        <h3 class="knowledge-card-title" id="knowledgeTitle"></h3>
+        <div class="knowledge-card-content" id="knowledgeContent"></div>
+        <div class="knowledge-card-actions">
+          <button class="knowledge-card-btn primary" onclick="closeKnowledge()">我知道了</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 庆祝效果容器 -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-content">
+        <div class="loading-icon">⚖️</div>
+        <div class="loading-text">正在加载法庭系统...</div>
+        <div class="loading-bar">
+          <div class="loading-fill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
